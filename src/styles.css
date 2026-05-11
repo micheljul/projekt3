@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial, sans-serif;
+}
+
+.box {
+  border: 2px solid black;   /* Rahmen */
+  padding: 20px;
+  border-radius: 10px;       /* schöner abgerundet */
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 220px;
+  text-align: center;
+
+  background-color: white;   /* optional */
+}
+
+button {
+  padding: 8px;
+  cursor: pointer;
+}
