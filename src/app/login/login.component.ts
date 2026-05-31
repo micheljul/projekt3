@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {}
+export class LoginComponent {
+  correctPassword = "test";
+
+  message = "";
+
+  messageColor = "black";
+
+  login(firstName: string, lastName: string, password: string) {
+
+    if (password === this.correctPassword) {
+      this.message = `Login erfolgreich`;
+      this.messageColor = "green";
+    } else {
+      this.message = "Falsches Passwort";
+      this.messageColor = "red";
+    }
+
+  }
+}

@@ -1,9 +1,19 @@
 <div class="box">
   <h1>Login</h1>
-  <input placeholder="Vorname">
-  <input type="text" placeholder="Nachname">
-  <input id="password" type="password" placeholder="Passwort">
 
-  <button id="loginBtn">Einloggen</button>
-  <button>Registrieren</button>
+  <input #firstName placeholder="Vorname">
+  <input #lastName placeholder="Nachname">
+  <input #password type="password" placeholder="Passwort">
+
+  <button (click)="login(firstName.value, lastName.value, password.value)">
+    Einloggen
+  </button>
+
+  <button>
+    Registrieren
+  </button>
+
+  <p [style.color]="messageColor">
+    {{ message }}
+  </p>
 </div>
