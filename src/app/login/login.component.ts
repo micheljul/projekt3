@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+
+  constructor(private router: Router) {}
+
+  test() {
+    console.log("CLICK FUNKTIONIERT");
+  }
 
   message: string = "";
   messageColor: string = "black";
