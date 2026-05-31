@@ -1,0 +1,15 @@
+<div class="box">
+  <h2>Schüler-Details</h2>
+
+  <div class="profil-info">
+    <div class="profilbild">[Bild]</div>
+
+    <h3>{{ schuelerName }}</h3>
+    <p><strong>Klasse:</strong> {{ schuelerKlasse }}</p>
+    <p><strong>Lieblingsfach / Hobbys:</strong> {{ schuelerHobbys }}</p>
+    <p><strong>Beschreibung:</strong> {{ schuelerBeschreibung }}</p>
+  </div>
+
+  <br>
+  <button [routerLink]="['/schueler-liste']">Zurück zur Liste</button>
+</div>
