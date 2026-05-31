@@ -10,12 +10,6 @@ import {Router, RouterModule} from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) {}
-
-  test() {
-    console.log("CLICK FUNKTIONIERT");
-  }
-
   message: string = "";
   messageColor: string = "black";
   correctPassword: string = "test";
