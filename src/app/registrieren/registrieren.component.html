@@ -2,13 +2,25 @@
 
   <h2>Registrieren</h2>
 
-  <input name="firstName" placeholder="Vorname"><br>
-  <input name="lastName" placeholder="Nachname"><br>
-  <input name="email" placeholder="Email"><br>
-  <input name="password" type="password" placeholder="Passwort"><br>
-  <input name="confirmPassword" type="password" placeholder="Passwort bestätigen"><br>
+  <input #firstName placeholder="Vorname"><br>
+  <input #lastName placeholder="Nachname"><br>
+  <input #email placeholder="Email"><br>
+  <input #password type="password" placeholder="Passwort"><br>
+  <input #confirmPassword type="password" placeholder="Passwort bestätigen"><br>
 
-  <button type="submit">Registrieren</button>
+  <button
+    (click)="register(
+      firstName.value,
+      lastName.value,
+      email.value,
+      password.value,
+      confirmPassword.value
+    )">
+    Registrieren
+  </button>
+
+  <p [style.color]="messageColor">
+    {{ message }}
+  </p>
 
 </div>
-
