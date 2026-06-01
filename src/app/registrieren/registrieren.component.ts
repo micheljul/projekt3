@@ -8,69 +8,117 @@ import { Component } from '@angular/core';
   styleUrl: './registrieren.component.scss',
 })
 export class RegistrierenComponent {
-  message = '';
-  messageColor = 'black';
+
+  message: string = '';
+
+  messageColor: string = 'black';
+
+  user = {
+
+    firstName: '',
+
+    lastName: '',
+
+    email: '',
+
+    password: ''
+
+  };
 
   register(
     firstName: string,
     lastName: string,
+
     email: string,
+
     password: string,
+
     confirmPassword: string
+
   ) {
 
-    // Pflichtfelder
+    // Pflichtfelder prüfen
+
     if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !confirmPassword
+
+      !firstName.trim() ||
+
+      !lastName.trim() ||
+
+      !email.trim() ||
+
+      !password.trim() ||
+
+      !confirmPassword.trim()
+
     ) {
+
       this.message = 'Alle Felder müssen ausgefüllt werden.';
+
       this.messageColor = 'red';
+
       return;
+
     }
 
-    // Email prüfen
+    // E-Mail prüfen
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
+
       this.message = 'Bitte eine gültige E-Mail-Adresse eingeben.';
+
       this.messageColor = 'red';
+
       return;
+
     }
 
-    // Passwortlänge
+    // Passwortlänge prüfen
+
     if (password.length < 8) {
-      this.message = 'Das Passwort muss mindestens 8 Zeichen haben.';
+
+      this.message = 'Das Passwort muss mindestens 8 Zeichen lang sein.';
+
       this.messageColor = 'red';
+
       return;
+
     }
 
-    // Großbuchstabe
-    if (!/[A-Z]/.test(password)) {
-      this.message = 'Das Passwort muss mindestens einen Großbuchstaben enthalten.';
-      this.messageColor = 'red';
-      return;
-    }
+    // Passwort bestätigen
 
-    // Zahl
-    if (!/\d/.test(password)) {
-      this.message = 'Das Passwort muss mindestens eine Zahl enthalten.';
-      this.messageColor = 'red';
-      return;
-    }
-
-    // Passwortvergleich
     if (password !== confirmPassword) {
+
       this.message = 'Die Passwörter stimmen nicht überein.';
+
       this.messageColor = 'red';
+
       return;
+
     }
+
+    // Benutzer speichern
+
+    this.user = {
+
+      firstName,
+
+      lastName,
+
+      email,
+
+      password
+
+    };
 
     this.message = 'Registrierung erfolgreich!';
-    this.messageColor = 'green';
-  }
 
+    this.messageColor = 'green';
+
+    console.log('Gespeicherter Benutzer:', this.user);
+
+
+  }
 }
