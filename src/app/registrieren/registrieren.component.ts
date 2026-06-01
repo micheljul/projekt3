@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registrieren',
@@ -9,6 +10,7 @@ import { Component } from '@angular/core';
 })
 export class RegistrierenComponent {
 
+  constructor(private router: Router) {}
   message: string = '';
 
   messageColor: string = 'black';
@@ -118,6 +120,8 @@ export class RegistrierenComponent {
     this.messageColor = 'green';
 
     console.log('Gespeicherter Benutzer:', this.user);
+
+    this.router.navigate(['/role-selection']);
 
 
   }
