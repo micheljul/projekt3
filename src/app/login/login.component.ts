@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {RouterModule} from '@angular/router';
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,20 @@ import {RouterModule} from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+
+  private firestore: Firestore = inject(Firestore);
+
+  async testSpeichern() {
+    const schuelerCollection = collection(this.firestore, 'schueler_profile');
+
+    await addDoc(schuelerCollection, {
+      name: 'Mark (Test vom Login-Screen)',
+      klasse: '4AHITM',
+      hobbys: 'Es funktioniert!'
+    });
+
+    alert('Daten wurden erfolgreich an Firebase gesendet!');
+  }
 
   message: string = "";
   messageColor: string = "black";

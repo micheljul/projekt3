@@ -1,0 +1,88 @@
+.dashboard-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  .list-card {
+    flex: 1; // Gibt beiden Spalten exakt gleich viel Platz
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f5;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      color: #2c3e50;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #edf2f7;
+    }
+  }
+
+  // Optionale farbige Akzente für die Spalten-Überschriften
+  .lehrer-card h2 { border-color: #3182ce; }
+  .schueler-card h2 { border-color: #38a169; }
+
+  .fancy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 4px solid #cbd5e1;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateX(4px);
+        background: #f1f5f9;
+      }
+
+      .item-icon {
+        font-size: 1.2rem;
+        background: #ffffff;
+        padding: 6px;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .item-info {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-weight: 600;
+          color: #334155;
+        }
+
+        .details {
+          font-size: 0.85rem;
+          color: #64748b;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .empty-state {
+      background: transparent;
+      border: 2px dashed #e2e8f0;
+      color: #94a3b8;
+      justify-content: center;
+      font-style: italic;
+      border-left: 2px dashed #e2e8f0;
+
+      &:hover { transform: none; background: transparent; }
+    }
+  }
+}

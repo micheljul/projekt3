@@ -1,28 +1,6 @@
-<div class="box">
-  <h2>Schüler-Profil anlegen</h2>
+<div class="profil-formular">
+  <input [(ngModel)]="neuerName" placeholder="Dein Vorname">
+  <input [(ngModel)]="neueKlasse" placeholder="Deine Klasse">
 
-  <form class="profile-form">
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="klasse">Klasse:</label>
-      <input type="text" id="klasse" name="klasse" required placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="lieblingsfach">Lieblingsfach:</label>
-      <input type="text" id="lieblingsfach" name="lieblingsfach" placeholder="">
-    </div>
-
-    <div class="form-group">
-      <label for="beschreibung">Beschreibung:</label>
-      <textarea id="beschreibung" name="beschreibung" rows="4" placeholder="Über dich..."></textarea>
-    </div>
-
-    <button type="submit">Profil speichern</button>
-  </form>
+  <button (click)="datenSpeichern()">Profil speichern</button>
 </div>
-

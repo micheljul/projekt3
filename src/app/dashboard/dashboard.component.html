@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+
+  <!-- Linke Spalte: Lehrer -->
+  <div class="list-card lehrer-card">
+    <h2>👨‍🏫 Lehrer-Liste</h2>
+    <ul class="fancy-list">
+      @for (lehrer of lehrerListe$ | async; track $index) {
+        <li>
+          <div class="item-icon">💼</div>
+          <div class="item-info">
+            <span class="name">{{ lehrer.name }}</span>
+            <span class="details">Lehrkraft</span>
+          </div>
+        </li>
+      } @empty {
+        <li class="empty-state">Lade Lehrer... (oder keine vorhanden)</li>
+      }
+    </ul>
+  </div>
+
+  <!-- Rechte Spalte: Schüler -->
+  <div class="list-card schueler-card">
+    <h2>🎓 Schüler-Liste</h2>
+    <ul class="fancy-list">
+      @for (schueler of schuelerListe$ | async; track $index) {
+        <li>
+          <div class="item-icon">👤</div>
+          <div class="item-info">
+            <span class="name">{{ schueler.name }}</span>
+            <span class="details">Klasse: {{ schueler.klasse }}</span>
+          </div>
+        </li>
+      } @empty {
+        <li class="empty-state">Lade Schüler... (oder keine vorhanden)</li>
+      }
+    </ul>
+  </div>
+
+</div>
