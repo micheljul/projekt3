@@ -16,17 +16,25 @@
 
 <div class="dashboard-container">
 
-  <!-- Linke Spalte: Lehrer -->
+  <!-- Rechte/Linke Spalte: Lehrer -->
   <div class="list-card lehrer-card">
     <h2>👨‍🏫 Lehrer-Liste</h2>
+
     <ul class="fancy-list">
       @for (lehrer of lehrerListe$ | async; track $index) {
-        <li class="lehrer-item">
+        <li class="lehrer-item"
+            (click)="oeffneLehrerDetails(lehrer)"
+            style="cursor: pointer;">
+
           <div class="item-icon">💼</div>
+
           <div class="item-info">
             <span class="name">{{ lehrer.name }}</span>
-            <span class="details">Lehrkraft</span>
+            <span class="details">
+            Fach: {{ lehrer.unterrichtsfach }}
+          </span>
           </div>
+
         </li>
       } @empty {
         <li class="empty-state">Keine Lehrer gefunden...</li>
