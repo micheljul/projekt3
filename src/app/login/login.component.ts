@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
-import {RouterModule} from '@angular/router';
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import {Component} from '@angular/core';
+import {Router, RouterModule} from '@angular/router';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../firebase.config';
 
 @Component({
   selector: 'app-login',
@@ -11,25 +12,13 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 })
 export class LoginComponent {
 
-  private firestore: Firestore = inject(Firestore);
-
-  async testSpeichern() {
-    const schuelerCollection = collection(this.firestore, 'schueler_profile');
-
-    await addDoc(schuelerCollection, {
-      name: 'Mark (Test vom Login-Screen)',
-      klasse: '4AHITM',
-      hobbys: 'Es funktioniert!'
-    });
-
-    alert('Daten wurden erfolgreich an Firebase gesendet!');
+  constructor(private router: Router) {
   }
 
   message: string = "";
   messageColor: string = "black";
-  correctPassword: string = "test";
 
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
 
     if (!email || !password) {
       this.message = "E-Mail und Passwort müssen ausgefüllt sein ❗";
@@ -37,12 +26,26 @@ export class LoginComponent {
       return;
     }
 
-    if (password === this.correctPassword) {
-      this.message = `Login erfolgreich. Willkommen ${email}`;
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredential.user;
+
+      this.message = `Login erfolgreich. Willkommen ${user.email}`;
       this.messageColor = "green";
-    } else {
-      this.message = "Falsches Passwort";
+
+      // optional Weiterleitung
+      this.router.navigate(['/dashboard']);
+
+    } catch (error) {
+      this.message = "Login fehlgeschlagen ❌ (E-Mail oder Passwort falsch)";
       this.messageColor = "red";
+
+      console.error(error);
     }
   }
 }
