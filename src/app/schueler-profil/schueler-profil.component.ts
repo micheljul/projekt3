@@ -1,31 +1,52 @@
 import {Component, inject} from '@angular/core';
-import {FormsModule} from '@angular/forms'; // Wichtig für die Eingabefelder
+import {FormsModule} from '@angular/forms';
 import {addDoc, collection, Firestore} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
+
+import {getDownloadURL, getStorage, ref, uploadBytes} from 'firebase/storage';
 
 @Component({
   selector: 'app-schueler-profil',
   standalone: true,
-  imports: [FormsModule], // Hier das Modul hinzufügen
+  imports: [FormsModule],
   templateUrl: './schueler-profil.component.html',
   styleUrl: './schueler-profil.component.scss'
 })
 export class SchuelerProfilComponent {
 
-  // Diese Variablen halten das, was du im HTML eintippst
   neuerName: string = "";
   neueKlasse: string = "";
 
   private firestore: Firestore = inject(Firestore);
   private router = inject(Router);
 
+  selectedFile: File | null = null;
+
+  // 📁 Datei auswählen
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   async datenSpeichern() {
+    const storage = getStorage();
+    let downloadURL = "";
+
+    // 📤 Bild hochladen
+    if (this.selectedFile) {
+      const filePath = `schueler-bilder/${Date.now()}_${this.selectedFile.name}`;
+      const storageRef = ref(storage, filePath);
+
+      await uploadBytes(storageRef, this.selectedFile);
+      downloadURL = await getDownloadURL(storageRef);
+    }
+
+    // 🧠 Firestore speichern
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
 
-    // Hier werden die Variablen aus dem HTML an Firebase geschickt
     await addDoc(schuelerCollection, {
       name: this.neuerName,
-      klasse: this.neueKlasse
+      klasse: this.neueKlasse,
+      bildUrl: downloadURL
     });
 
     alert('Profil erfolgreich gespeichert!');
