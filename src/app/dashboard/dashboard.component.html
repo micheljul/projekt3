@@ -1,3 +1,13 @@
+<!-- Diskrete Suchleiste oben drüber -->
+<div class="suche-oberhalb">
+  <input
+    type="text"
+    (input)="aufSucheEingabe($event)"
+    placeholder="🔍 Suchen..."
+    class="kleine-suchleiste"
+  >
+</div>
+
 <div class="dashboard-container">
 
   <!-- Linke Spalte: Lehrer -->
@@ -13,7 +23,7 @@
           </div>
         </li>
       } @empty {
-        <li class="empty-state">Lade Lehrer... (oder keine vorhanden)</li>
+        <li class="empty-state">Keine Lehrer gefunden...</li>
       }
     </ul>
   </div>
@@ -31,7 +41,7 @@
           </div>
         </li>
       } @empty {
-        <li class="empty-state">Lade Schüler... (oder keine vorhanden)</li>
+        <li class="empty-state">Keine Schüler gefunden...</li>
       }
     </ul>
   </div>

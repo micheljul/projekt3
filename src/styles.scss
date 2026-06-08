@@ -28,3 +28,48 @@ button {
   padding: 8px;
   cursor: pointer;
 }
+/* ==========================================================================
+   GLOBALE RESPONSIVE ANPASSUNGEN (Handys & kleine Tablets)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+  /* 1. Container & Boxen (Login, Registrieren, Profil) anpassen */
+  /* Macht Boxen auf dem Handy fast so breit wie den Bildschirm */
+  .login-container,
+  .registrieren-container,
+  .auswahl-container,
+  form,
+  .card {
+    width: 92% !important;
+    max-width: none !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    box-sizing: border-box;
+  }
+
+  /* 2. Eingabefelder und Buttons für Touchscreens optimieren */
+  /* Zieht alles auf 100% Breite und macht die Buttons "daumenfreundlich" */
+  input,
+  select,
+  textarea,
+  button {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    /* Etwas mehr Innenabstand (Padding) für leichteres Tippen auf dem Handy */
+    padding: 12px 15px !important;
+    /* Wichtig für iPhones: Schriftgröße min. 16px verhindert lästiges Auto-Zoomen! */
+    font-size: 16px !important;
+  }
+
+  /* 3. Abstände bei Buttons anpassen */
+  button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* 4. Texte und Überschriften etwas verkleinern */
+  h1, h2, h3 {
+    text-align: center;
+  }
+}

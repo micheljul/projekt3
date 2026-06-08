@@ -1,38 +1,58 @@
 import { Component, inject } from '@angular/core';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore'; // collectionData entfernt, onSnapshot hinzugefügt
-import { Observable } from 'rxjs';
+import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe], // Wir nutzen wieder den AsyncPipe wie vorher!
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   private firestore: Firestore = inject(Firestore);
 
+  // Ein kleiner Stream, der sich merkt, was du eintippst
+  suchBegriff$ = new BehaviorSubject<string>('');
+
   schuelerListe$: Observable<any[]>;
   lehrerListe$: Observable<any[]>;
 
   constructor() {
-    // 1. Schüler-Liste live laden
+    // 1. Rohdaten aus Firebase holen (Schüler)
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
-    this.schuelerListe$ = new Observable(observer => {
+    const roheSchueler$ = new Observable<any[]>(observer => {
       return onSnapshot(schuelerCollection, (snapshot) => {
-        const daten = snapshot.docs.map(doc => doc.data());
-        observer.next(daten);
+        observer.next(snapshot.docs.map(doc => doc.data()));
       });
     });
 
-    // 2. Lehrer-Liste live laden
+    // 2. Rohdaten aus Firebase holen (Lehrer)
     const lehrerCollection = collection(this.firestore, 'lehrer_profile');
-    this.lehrerListe$ = new Observable(observer => {
+    const roheLehrer$ = new Observable<any[]>(observer => {
       return onSnapshot(lehrerCollection, (snapshot) => {
-        const daten = snapshot.docs.map(doc => doc.data());
-        observer.next(daten);
+        observer.next(snapshot.docs.map(doc => doc.data()));
       });
     });
+
+    // 3. Live-Filterung: Wenn Suchbegriff leer ist, wird ALLES angezeigt
+    this.schuelerListe$ = combineLatest([roheSchueler$, this.suchBegriff$]).pipe(
+      map(([schueler, begriff]) =>
+        schueler.filter(s => s.name?.toLowerCase().includes(begriff.toLowerCase()))
+      )
+    );
+
+    this.lehrerListe$ = combineLatest([roheLehrer$, this.suchBegriff$]).pipe(
+      map(([lehrer, begriff]) =>
+        lehrer.filter(l => l.name?.toLowerCase().includes(begriff.toLowerCase()))
+      )
+    );
+  }
+
+  // Diese Funktion wird aufgerufen, wenn du tippst
+  aufSucheEingabe(event: any) {
+    this.suchBegriff$.next(event.target.value);
   }
 }
