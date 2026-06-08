@@ -4,10 +4,13 @@
     <!-- Grüner Header -->
     <div class="card-header">
       <div class="header-icon">👤</div>
-      <h2>Schüler-Profil</h2>
-      <button class="edit-btn" (click)="modusWechseln()">
-        {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
-      </button>
+      <h2>{{ darfBearbeiten ? 'Mein Profil' : 'Schüler-Profil' }}</h2>
+
+      @if (darfBearbeiten) {
+        <button class="edit-btn" (click)="modusWechseln()">
+          {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
+        </button>
+      }
     </div>
 
     <div class="card-body">

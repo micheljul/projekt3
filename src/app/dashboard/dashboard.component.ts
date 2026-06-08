@@ -60,11 +60,20 @@ export class DashboardComponent {
   }
 
   // HIER IST DIE FEHLENDE FUNKTION:
+  // Wird aufgerufen, wenn du auf einen Schüler in der Liste klickst
   oeffneSchuelerDetails(schuelerDaten: any) {
-    console.log("Klick wurde registriert!", schuelerDaten);
-    this.router.navigate(['/schueler-detail'], {state: {profil: schuelerDaten}});
+    // WICHTIG: darfBearbeiten: false
+    this.router.navigate(['/schueler-detail'], { state: { profil: schuelerDaten, darfBearbeiten: false } });
   }
 
+  // Wird aufgerufen, wenn du oben auf "Mein Profil" klickst
+  oeffneMeinProfil() {
+    // Platzhalter: Hier lädst du später deine echten Firebase-Nutzerdaten rein
+    const meinEigenesProfil = { name: 'Mein Account', klasse: 'Meine Klasse' };
+
+    // WICHTIG: darfBearbeiten: true
+    this.router.navigate(['/schueler-detail'], { state: { profil: meinEigenesProfil, darfBearbeiten: true } });
+  }
   async logout() {
 
     try {
@@ -76,4 +85,5 @@ export class DashboardComponent {
     }
 
   }
+
 }

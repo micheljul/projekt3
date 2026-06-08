@@ -1,5 +1,3 @@
-
-
 <!-- Diskrete Suchleiste oben drüber -->
 <div class="suche-oberhalb">
   <input
@@ -8,11 +6,13 @@
     placeholder="🔍 Suchen..."
     class="kleine-suchleiste"
   >
-  <button class="logout-btn" (click)="logout()">
-    🚪 Logout
-  </button>
-</div>
 
+  <!-- NEU: Button-Gruppe rechts -->
+  <div class="button-group">
+    <button class="profil-btn" (click)="oeffneMeinProfil()">👤 Mein Profil</button>
+    <button class="logout-btn" (click)="logout()">🚪 Logout</button>
+  </div>
+</div>
 
 <div class="dashboard-container">
 
@@ -21,7 +21,6 @@
     <h2>👨‍🏫 Lehrer-Liste</h2>
     <ul class="fancy-list">
       @for (lehrer of lehrerListe$ | async; track $index) {
-        <!-- Hier die neue Klasse "lehrer-item" hinzufügen -->
         <li class="lehrer-item">
           <div class="item-icon">💼</div>
           <div class="item-info">
@@ -40,14 +39,12 @@
     <h2>🎓 Schüler-Liste</h2>
     <ul class="fancy-list">
       @for (schueler of schuelerListe$ | async; track $index) {
-        <!-- Hier die neue Klasse "schueler-item" hinzufügen -->
         <li class="schueler-item" (click)="oeffneSchuelerDetails(schueler)" style="cursor: pointer;">
           <div class="item-icon">👤</div>
           <div class="item-info">
             <span class="name">{{ schueler.name }}</span>
             <span class="details">Klasse: {{ schueler.klasse }}</span>
           </div>
-
         </li>
       } @empty {
         <li class="empty-state">Keine Schüler gefunden...</li>

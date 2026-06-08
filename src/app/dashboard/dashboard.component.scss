@@ -1,57 +1,84 @@
 .suche-oberhalb {
-  max-width: 1200px;
-  margin: 30px auto 10px auto;
+  width: 100%;
+  max-width: 1200px; /* Gleiche Breite wie die Liste */
+  margin: 30px auto 20px auto;
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 
   .kleine-suchleiste {
     width: 100%;
-    max-width: 250px; // Schön kompakt gehalten
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    max-width: 400px;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
     outline: none;
     background: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-    transition: all 0.2s ease;
 
     &:focus {
       border-color: #3182ce;
       box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
     }
   }
-}
 
+  /* NEU: Die Buttons schön nebeneinander und kleiner */
+  .button-group {
+    display: flex;
+    gap: 15px;
 
-.logout-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .profil-btn, .logout-btn {
+      padding: 10px 16px; /* Wieder kleiner gemacht */
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      transition: background-color 0.2s;
+    }
 
-.logout-btn:hover {
-  background-color: #c0392b;
+    .profil-btn {
+      background-color: #3b82f6; /* Blau */
+      &:hover { background-color: #2563eb; }
+    }
+
+    .logout-btn {
+      background-color: #e74c3c; /* Rot */
+      &:hover { background-color: #c0392b; }
+    }
+  }
 }
 
 .dashboard-container {
   display: flex;
-  gap: 30px;
-  max-width: 1200px;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px; /* Sorgt dafür, dass die Liste den Platz gut ausnutzt */
   margin: 10px auto 40px auto;
-  padding: 0 20px;
+  padding: 40px;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  background: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 
   .list-card {
     flex: 1;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border: 1px solid #eef2f5;
+    /* Einzel-Rahmen der Boxen komplett entfernt */
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    padding-right: 15px; /* Abstand für den Scrollbalken */
+
+    height: 600px;
+    overflow-y: auto;
 
     h2 {
       margin-top: 0;
@@ -61,96 +88,93 @@
       padding-bottom: 10px;
       border-bottom: 2px solid #edf2f7;
     }
-  }
 
-  .lehrer-card h2 {
-    border-color: #3182ce;
-  }
+    &.lehrer-card h2 {
+      border-color: #3182ce;
+    }
 
-  .schueler-card h2 {
-    border-color: #38a169;
-  }
+    &.schueler-card h2 {
+      border-color: #38a169;
+    }
 
-  .fancy-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    .fancy-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
-    /* Grund-Styling für beide Listen-Elemente */
-    li {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      transition: all 0.2s ease;
-
-      .item-icon {
-        font-size: 1.2rem;
-        background: #ffffff;
-        padding: 6px;
-        border-radius: 6px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      }
-
-      .item-info {
+      li {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
 
-        .name {
-          font-weight: 600;
-          color: #334155;
+        .item-icon {
+          font-size: 1.2rem;
+          background: #ffffff;
+          padding: 6px;
+          border-radius: 6px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        .details {
-          font-size: 0.85rem;
-          color: #64748b;
-          margin-top: 2px;
+        .item-info {
+          display: flex;
+          flex-direction: column;
+
+          .name {
+            font-weight: 600;
+            color: #334155;
+          }
+
+          .details {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 2px;
+          }
         }
       }
-    }
 
-    /* SPEZIFISCHES STYLING FÜR LEHRER (Blaues Theme) */
-    .lehrer-item {
-      background: #eff6ff; /* Sehr helles Blau */
-      border-left: 4px solid #3b82f6; /* Blauer Balken links */
+      .lehrer-item {
+        background: #eff6ff;
+        border-left: 4px solid #3b82f6;
 
-      &:hover {
-        transform: translateX(4px);
-        background: #dbeafe; /* Etwas dunkleres Blau beim Drüberfahren */
+        &:hover {
+          transform: translateX(4px);
+          background: #dbeafe;
+        }
+
+        .item-icon {
+          color: #3b82f6;
+        }
       }
 
-      .item-icon {
-        color: #3b82f6;
+      .schueler-item {
+        background: #f0fdf4;
+        border-left: 4px solid #22c55e;
+
+        &:hover {
+          transform: translateX(4px);
+          background: #dcfce7;
+        }
+
+        .item-icon {
+          color: #22c55e;
+        }
       }
-    }
 
-    /* SPEZIFISCHES STYLING FÜR SCHÜLER (Grünes Theme) */
-    .schueler-item {
-      background: #f0fdf4; /* Sehr helles Grün */
-      border-left: 4px solid #22c55e; /* Grüner Balken links */
-
-      &:hover {
-        transform: translateX(4px);
-        background: #dcfce7; /* Etwas dunkleres Grün beim Drüberfahren */
-      }
-
-      .item-icon {
-        color: #22c55e;
-      }
-    }
-
-    .empty-state {
-      background: transparent;
-      border: 2px dashed #e2e8f0;
-      color: #94a3b8;
-      justify-content: center;
-      font-style: italic;
-
-      &:hover {
-        transform: none;
+      .empty-state {
         background: transparent;
+        border: 2px dashed #e2e8f0;
+        color: #94a3b8;
+        justify-content: center;
+        font-style: italic;
+
+        &:hover {
+          transform: none;
+          background: transparent;
+        }
       }
     }
   }

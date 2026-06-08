@@ -14,10 +14,12 @@ import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 export class SchuelerDetailComponent {
   profil: any = {};
   istBearbeiten: boolean = false;
+  darfBearbeiten: boolean = false;
   private firestore: Firestore = inject(Firestore);
 
   constructor() {
     this.profil = history.state.profil || {};
+    this.darfBearbeiten = history.state.darfBearbeiten || false;
   }
 
   modusWechseln() {
