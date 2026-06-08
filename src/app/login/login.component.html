@@ -1,15 +1,10 @@
-<button (click)="testSpeichern()" style="background: red; color: white; padding: 10px;">
-  Verbindung testen!
-</button>
-
 <div class="box">
   <h1>Login</h1>
 
-  <input #firstName placeholder="Vorname">
-  <input #lastName placeholder="Nachname">
+  <input #email placeholder="E-Mail">
   <input #password type="password" placeholder="Passwort">
 
-  <button (click)="login(firstName.value, lastName.value, password.value)">
+  <button (click)="login(email.value, password.value)">
     Einloggen
   </button>
 

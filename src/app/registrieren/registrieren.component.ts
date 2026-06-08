@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
 
 @Component({
   selector: 'app-registrieren',
@@ -23,7 +24,7 @@ export class RegistrierenComponent {
     password: ''
   };
 
-  register(
+  async register(
     firstName: string,
     lastName: string,
     email: string,
@@ -46,40 +47,59 @@ export class RegistrierenComponent {
 
     // E-Mail prüfen
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!emailRegex.test(email)) {
       this.message = 'Bitte eine gültige E-Mail-Adresse eingeben.';
       this.messageColor = 'red';
       return;
     }
 
-    // Passwortlänge prüfen
+    // Passwort prüfen
     if (password.length < 8) {
       this.message = 'Das Passwort muss mindestens 8 Zeichen lang sein.';
       this.messageColor = 'red';
       return;
     }
 
-    // Passwort bestätigen
+    // Passwortvergleich
     if (password !== confirmPassword) {
       this.message = 'Die Passwörter stimmen nicht überein.';
       this.messageColor = 'red';
       return;
     }
 
-    // Benutzer speichern
-    this.user = {
-      firstName,
-      lastName,
-      email,
-      password
-    };
+    // Firebase Registrierung
+    const auth = getAuth();
 
-    this.message = 'Registrierung erfolgreich!';
-    this.messageColor = 'green';
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    console.log('Gespeicherter Benutzer:', this.user);
+      console.log('Firebase User erstellt:', userCredential.user);
 
-    this.router.navigate(['/role-selection']);
+      // optional: lokale Speicherung (ohne Passwort wäre besser!)
+      this.user = {
+        firstName,
+        lastName,
+        email,
+        password
+      };
+
+      this.message = 'Registrierung erfolgreich!';
+      this.messageColor = 'green';
+
+      console.log('Gespeicherter Benutzer:', this.user);
+
+      // Weiterleitung
+      this.router.navigate(['/role-selection']);
+
+    } catch (error) {
+      console.error('Firebase Fehler:', error);
+
+      this.message = 'Registrierung fehlgeschlagen';
+      this.messageColor = 'red';
+    }
   }
 }
