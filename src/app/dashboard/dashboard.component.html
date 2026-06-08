@@ -15,7 +15,8 @@
     <h2>👨‍🏫 Lehrer-Liste</h2>
     <ul class="fancy-list">
       @for (lehrer of lehrerListe$ | async; track $index) {
-        <li>
+        <!-- Hier die neue Klasse "lehrer-item" hinzufügen -->
+        <li class="lehrer-item">
           <div class="item-icon">💼</div>
           <div class="item-info">
             <span class="name">{{ lehrer.name }}</span>
@@ -33,7 +34,8 @@
     <h2>🎓 Schüler-Liste</h2>
     <ul class="fancy-list">
       @for (schueler of schuelerListe$ | async; track $index) {
-        <li>
+        <!-- Hier die neue Klasse "schueler-item" hinzufügen -->
+        <li class="schueler-item">
           <div class="item-icon">👤</div>
           <div class="item-info">
             <span class="name">{{ schueler.name }}</span>
