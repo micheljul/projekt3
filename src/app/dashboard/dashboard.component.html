@@ -26,7 +26,10 @@
             (click)="oeffneLehrerDetails(lehrer)"
             style="cursor: pointer;">
 
-          <div class="item-icon">💼</div>
+          <div class="item-icon">
+            <img *ngIf="lehrer.bildUrl; else icon" [src]="lehrer.bildUrl"/>
+            <ng-template #icon>💼</ng-template>
+          </div>
 
           <div class="item-info">
             <span class="name">{{ lehrer.name }}</span>

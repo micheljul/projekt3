@@ -3,7 +3,10 @@
 
     <!-- Header -->
     <div class="card-header">
-      <div class="header-icon">👨‍🏫</div>
+      <div class="header-icon">
+        <img *ngIf="profil?.bildUrl; else emoji" [src]="profil.bildUrl"/>
+        <ng-template #emoji>👨‍🏫</ng-template>
+      </div>
 
       <h2>{{ profil?.name ? profil.name : 'Lehrer-Profil' }}</h2>
 
