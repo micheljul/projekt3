@@ -27,7 +27,7 @@ export class DashboardComponent {
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
     const roheSchueler$ = new Observable<any[]>(observer => {
       return onSnapshot(schuelerCollection, (snapshot) => {
-        observer.next(snapshot.docs.map(doc => doc.data()));
+        observer.next(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       });
     });
 

@@ -1,23 +1,66 @@
-<div class="box">
-  <h2>Schüler-Details</h2>
+<div class="page-wrapper">
+  <div class="detail-card">
 
-  <div class="detail-container">
-
-    <div class="profil-info">
-      <div class="profilbild">[Bild]</div>
-
-      <!-- Hier greifen wir jetzt richtig auf das "profil"-Objekt zu -->
-      <h3>{{ profil?.name }}</h3>
-      <p><strong>Klasse:</strong> {{ profil?.klasse }}</p>
-
-      <!-- Diese Felder müssen genau so heißen, wie du sie damals in Firebase gespeichert hast -->
-      <p><strong>Lieblingsfach / Hobbys:</strong> {{ profil?.hobbys }}</p>
-      <p><strong>Beschreibung:</strong> {{ profil?.beschreibung }}</p>
+    <!-- Grüner Header -->
+    <div class="card-header">
+      <div class="header-icon">👤</div>
+      <h2>Schüler-Profil</h2>
+      <button class="edit-btn" (click)="modusWechseln()">
+        {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
+      </button>
     </div>
 
-    <br>
+    <div class="card-body">
+      <!-- Lese-Modus -->
+      @if (!istBearbeiten) {
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Name</span>
+            <span class="value">{{ profil?.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Klasse</span>
+            <span class="value">{{ profil?.klasse }}</span>
+          </div>
+          <div class="info-item full-width">
+            <span class="label">Lieblingsfach / Hobbys</span>
+            <span class="value">{{ profil?.hobbys || '-' }}</span>
+          </div>
+          <div class="info-item full-width">
+            <span class="label">Beschreibung</span>
+            <span class="value">{{ profil?.beschreibung || '-' }}</span>
+          </div>
+        </div>
+      }
 
-    <!-- Link zurück zum Dashboard angepasst -->
-    <button [routerLink]="['/dashboard']">Zurück zum Dashboard</button>
+      <!-- Bearbeitungs-Modus (Formular) -->
+      @else {
+        <div class="edit-form">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="profil.name">
+          </div>
+          <div class="form-group">
+            <label>Klasse</label>
+            <input type="text" [(ngModel)]="profil.klasse">
+          </div>
+          <div class="form-group full-width">
+            <label>Lieblingsfach / Hobbys</label>
+            <input type="text" [(ngModel)]="profil.hobbys">
+          </div>
+          <div class="form-group full-width">
+            <label>Beschreibung</label>
+            <textarea [(ngModel)]="profil.beschreibung" rows="4"></textarea>
+          </div>
+          <button class="save-btn" (click)="speichern()">💾 Speichern</button>
+        </div>
+      }
+    </div>
+
+    <!-- Fußzeile -->
+    <div class="card-footer">
+      <button class="back-btn" [routerLink]="['/dashboard']">🔙 Zurück zum Dashboard</button>
+    </div>
+
   </div>
 </div>
