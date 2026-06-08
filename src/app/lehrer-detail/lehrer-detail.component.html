@@ -1,21 +1,17 @@
 <div class="page-wrapper">
   <div class="detail-card">
 
+    <!-- Header -->
     <div class="card-header">
       <div class="header-icon">👨‍🏫</div>
 
-      <h2>Lehrer-Profil</h2>
+      <h2>{{ profil?.name ? profil.name : 'Lehrer-Profil' }}</h2>
 
-      @if (istBearbeiten) {
+      @if (darfBearbeiten) {
         <button class="edit-btn" (click)="modusWechseln()">
-          ❌ Abbrechen
-        </button>
-      } @else {
-        <button class="edit-btn" (click)="modusWechseln()">
-          ✏️ Bearbeiten
+          {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
         </button>
       }
-
     </div>
 
     <div class="card-body">
@@ -27,56 +23,41 @@
 
           <div class="info-item">
             <span class="label">Name</span>
-            <span class="value">{{ profil.name || '—' }}</span>
+            <span class="value">{{ profil?.name }}</span>
           </div>
 
           <div class="info-item">
-            <span class="label">Fach</span>
-            <span class="value">{{ profil.unterrichtsfach || '—' }}</span>
+            <span class="label">Unterrichtsfach</span>
+            <span class="value">{{ profil?.unterrichtsfach }}</span>
           </div>
 
           <div class="info-item full-width">
-            <span class="label">Sprechstunde</span>
-            <span class="value">{{ profil.sprechstunde || '—' }}</span>
-          </div>
-
-          <div class="info-item full-width">
-            <span class="label">Beschreibung</span>
-            <span class="value">{{ profil.beschreibung || '—' }}</span>
+            <span class="label">Hobby</span>
+            <span class="value">{{ profil?.hobbys || '-' }}</span>
           </div>
 
         </div>
 
-      }
-
-      <!-- EDIT MODE -->
-      @else {
+      } @else {
 
         <div class="edit-form">
 
           <div class="form-group">
             <label>Name</label>
-            <input [(ngModel)]="profil.name">
+            <input type="text" [(ngModel)]="profil.name">
           </div>
 
           <div class="form-group">
             <label>Unterrichtsfach</label>
-            <input [(ngModel)]="profil.unterrichtsfach">
+            <input type="text" [(ngModel)]="profil.unterrichtsfach">
           </div>
 
-          <div class="form-group">
-            <label>Sprechstunde</label>
-            <input [(ngModel)]="profil.sprechstunde">
+          <div class="form-group full-width">
+            <label>Hobby</label>
+            <input type="text" [(ngModel)]="profil.hobbys">
           </div>
 
-          <div class="form-group">
-            <label>Beschreibung</label>
-            <textarea rows="4" [(ngModel)]="profil.beschreibung"></textarea>
-          </div>
-
-          <button class="save-btn" (click)="speichern()">
-            💾 Speichern
-          </button>
+          <button class="save-btn" (click)="speichern()">💾 Speichern</button>
 
         </div>
 
@@ -84,9 +65,10 @@
 
     </div>
 
+    <!-- Footer -->
     <div class="card-footer">
-      <button class="back-btn" routerLink="/dashboard">
-        🔙 Zurück
+      <button class="back-btn" [routerLink]="['/dashboard']">
+        🔙 Zurück zum Dashboard
       </button>
     </div>
 

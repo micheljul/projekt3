@@ -1,0 +1,144 @@
+.card-header {
+  background: #eff6ff; /* blau statt grün */
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 4px solid #3b82f6;
+
+  .header-icon {
+    font-size: 3rem;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #1e3a8a;
+    flex-grow: 1;
+  }
+
+  .edit-btn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #334155;
+
+    &:hover {
+      background: #f1f5f9;
+    }
+  }
+}
+
+/* gleiche Struktur wie Schüler */
+.card-body {
+  padding: 40px 30px;
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #3b82f6;
+
+      &.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .label {
+        font-size: 0.9rem;
+        color: #64748b;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+
+      .value {
+        font-size: 1.2rem;
+        color: #334155;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .edit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      &.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-weight: bold;
+        color: #475569;
+        margin-bottom: 8px;
+      }
+
+      input, textarea {
+        padding: 12px 15px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        background: #f8fafc;
+        outline: none;
+
+        &:focus {
+          border-color: #3b82f6;
+          background: #ffffff;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+      }
+    }
+
+    .save-btn {
+      grid-column: 1 / -1;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 8px;
+
+      &:hover {
+        background: #2563eb;
+      }
+    }
+  }
+}
+
+.card-footer {
+  padding: 20px 30px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+
+  .back-btn {
+    background: #334155;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+
+    &:hover {
+      background: #1e293b;
+    }
+  }
+}
