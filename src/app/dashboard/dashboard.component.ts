@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AsyncPipe } from '@angular/common';
-import { Router } from '@angular/router'; // Router hinzugefügt
+import {Component, inject} from '@angular/core';
+import {collection, Firestore, onSnapshot} from '@angular/fire/firestore';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {AsyncPipe} from '@angular/common';
+import {Router} from '@angular/router';
+import {signOut} from '@angular/fire/auth';
+import {auth} from '../firebase.config'; // Router hinzugefügt
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,6 @@ import { Router } from '@angular/router'; // Router hinzugefügt
 })
 export class DashboardComponent {
   private firestore: Firestore = inject(Firestore);
-  private router: Router = inject(Router); // Router injiziert, damit die Weiterleitung klappt
 
   // Ein kleiner Stream, der sich merkt, was du eintippst
   suchBegriff$ = new BehaviorSubject<string>('');
@@ -22,12 +23,12 @@ export class DashboardComponent {
   schuelerListe$: Observable<any[]>;
   lehrerListe$: Observable<any[]>;
 
-  constructor() {
+  constructor(private router: Router) {
     // 1. Rohdaten aus Firebase holen (Schüler)
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
     const roheSchueler$ = new Observable<any[]>(observer => {
       return onSnapshot(schuelerCollection, (snapshot) => {
-        observer.next(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        observer.next(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
       });
     });
 
@@ -61,6 +62,18 @@ export class DashboardComponent {
   // HIER IST DIE FEHLENDE FUNKTION:
   oeffneSchuelerDetails(schuelerDaten: any) {
     console.log("Klick wurde registriert!", schuelerDaten);
-    this.router.navigate(['/schueler-detail'], { state: { profil: schuelerDaten } });
+    this.router.navigate(['/schueler-detail'], {state: {profil: schuelerDaten}});
+  }
+
+  async logout() {
+
+    try {
+      await signOut(auth);
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Logout Fehler:', error);
+
+    }
+
   }
 }
