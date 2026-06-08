@@ -1,75 +1,82 @@
 <div class="page-wrapper">
   <div class="detail-card">
 
-    <!-- Blauer Header -->
     <div class="card-header">
       <div class="header-icon">👨‍🏫</div>
 
-      <h2>{{ darfBearbeiten ? 'Mein Profil' : 'Lehrer-Profil' }}</h2>
+      <h2>Lehrer-Profil</h2>
 
-      @if (darfBearbeiten) {
+      @if (istBearbeiten) {
         <button class="edit-btn" (click)="modusWechseln()">
-          {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
+          ❌ Abbrechen
+        </button>
+      } @else {
+        <button class="edit-btn" (click)="modusWechseln()">
+          ✏️ Bearbeiten
         </button>
       }
+
     </div>
 
     <div class="card-body">
 
-      <!-- Lese-Modus -->
+      <!-- READ MODE -->
       @if (!istBearbeiten) {
 
         <div class="info-grid">
 
           <div class="info-item">
             <span class="label">Name</span>
-            <span class="value">{{ profil?.name }}</span>
+            <span class="value">{{ profil.name || '—' }}</span>
           </div>
 
           <div class="info-item">
-            <span class="label">Unterrichtsfach</span>
-            <span class="value">{{ profil?.unterrichtsfach }}</span>
+            <span class="label">Fach</span>
+            <span class="value">{{ profil.unterrichtsfach || '—' }}</span>
           </div>
 
           <div class="info-item full-width">
             <span class="label">Sprechstunde</span>
-            <span class="value">{{ profil?.sprechstunde || '-' }}</span>
+            <span class="value">{{ profil.sprechstunde || '—' }}</span>
           </div>
 
           <div class="info-item full-width">
             <span class="label">Beschreibung</span>
-            <span class="value">{{ profil?.beschreibung || '-' }}</span>
+            <span class="value">{{ profil.beschreibung || '—' }}</span>
           </div>
 
         </div>
+
       }
 
-      <!-- Edit Mode -->
+      <!-- EDIT MODE -->
       @else {
 
         <div class="edit-form">
 
           <div class="form-group">
             <label>Name</label>
-            <input type="text" [(ngModel)]="profil.name">
+            <input [(ngModel)]="profil.name">
           </div>
 
           <div class="form-group">
             <label>Unterrichtsfach</label>
-            <input type="text" [(ngModel)]="profil.unterrichtsfach">
+            <input [(ngModel)]="profil.unterrichtsfach">
           </div>
 
-          <div class="form-group full-width">
+          <div class="form-group">
             <label>Sprechstunde</label>
-            <input type="text" [(ngModel)]="profil.sprechstunde">
+            <input [(ngModel)]="profil.sprechstunde">
           </div>
 
-          <div class="form-group full-width">
+          <div class="form-group">
             <label>Beschreibung</label>
-            <textarea [(ngModel)]="profil.beschreibung" rows="4"></textarea>
+            <textarea rows="4" [(ngModel)]="profil.beschreibung"></textarea>
           </div>
 
-          <button class="save-btn" (click)="speichern()">💾 Speichern</button>
+          <button class="save-btn" (click)="speichern()">
+            💾 Speichern
+          </button>
 
         </div>
 
@@ -77,10 +84,9 @@
 
     </div>
 
-    <!-- Footer -->
     <div class="card-footer">
-      <button class="back-btn" [routerLink]="['/dashboard']">
-        🔙 Zurück zum Dashboard
+      <button class="back-btn" routerLink="/dashboard">
+        🔙 Zurück
       </button>
     </div>
 

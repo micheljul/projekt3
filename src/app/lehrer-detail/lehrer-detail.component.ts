@@ -1,27 +1,38 @@
 import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 import {doc, Firestore, updateDoc} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-lehrer-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './lehrer-detail.component.html',
   styleUrl: './lehrer-detail.component.scss'
 })
 export class LehrerDetailComponent {
 
-  profil: any = {};
-  istBearbeiten: boolean = false;
-  darfBearbeiten: boolean = false;
+  private firestore = inject(Firestore);
 
-  private firestore: Firestore = inject(Firestore);
+  profil: any = {
+    name: '',
+    unterrichtsfach: '',
+    sprechstunde: '',
+    beschreibung: ''
+  };
+
+  istBearbeiten = false;
 
   constructor() {
-    this.profil = history.state.profil || {};
-    this.darfBearbeiten = history.state.darfBearbeiten || false;
+    const state = history.state;
+
+    // SAFE LOAD (kein Crash wenn leer)
+    if (state?.profil) {
+      this.profil = state.profil;
+    }
+
+    console.log('Geladener Lehrer:', this.profil);
   }
 
   modusWechseln() {
@@ -29,17 +40,20 @@ export class LehrerDetailComponent {
   }
 
   async speichern() {
-    if (this.profil.id) {
 
-      const profilRef = doc(this.firestore, `lehrer_profile/${this.profil.id}`);
-
-      await updateDoc(profilRef, {
-        name: this.profil.name,
-        unterrichtsfach: this.profil.unterrichtsfach,
-        sprechstunde: this.profil.sprechstunde,
-        beschreibung: this.profil.beschreibung
-      });
+    if (!this.profil?.id) {
+      console.warn('Keine ID vorhanden → Update übersprungen');
+      return;
     }
+
+    const ref = doc(this.firestore, `lehrer_profile/${this.profil.id}`);
+
+    await updateDoc(ref, {
+      name: this.profil.name,
+      unterrichtsfach: this.profil.unterrichtsfach,
+      sprechstunde: this.profil.sprechstunde,
+      beschreibung: this.profil.beschreibung
+    });
 
     this.istBearbeiten = false;
   }
