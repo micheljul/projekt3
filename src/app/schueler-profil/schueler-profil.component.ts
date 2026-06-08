@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Wichtig für die Eingabefelder
-import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import {Component, inject} from '@angular/core';
+import {FormsModule} from '@angular/forms'; // Wichtig für die Eingabefelder
+import {addDoc, collection, Firestore} from '@angular/fire/firestore';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-schueler-profil',
@@ -16,6 +17,7 @@ export class SchuelerProfilComponent {
   neueKlasse: string = "";
 
   private firestore: Firestore = inject(Firestore);
+  private router = inject(Router);
 
   async datenSpeichern() {
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
@@ -27,5 +29,6 @@ export class SchuelerProfilComponent {
     });
 
     alert('Profil erfolgreich gespeichert!');
+    this.router.navigate(['/login']);
   }
 }
