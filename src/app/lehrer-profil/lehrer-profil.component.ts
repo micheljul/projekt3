@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {addDoc, collection, Firestore} from '@angular/fire/firestore';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-lehrer-profil',
@@ -16,6 +17,7 @@ export class LehrerProfilComponent {
   neueHobbys: string = "";
 
   private firestore: Firestore = inject(Firestore);
+  private router = inject(Router); // 👈 WICHTIG
 
   async datenSpeichern() {
     const lehrerCollection = collection(this.firestore, 'lehrer_profile');
@@ -27,5 +29,7 @@ export class LehrerProfilComponent {
     });
 
     alert('Lehrer-Profil erfolgreich gespeichert!');
+
+    this.router.navigate(['/login']);
   }
 }
