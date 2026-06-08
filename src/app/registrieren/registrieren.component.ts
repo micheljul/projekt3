@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {doc, setDoc} from 'firebase/firestore';
+import {auth, db} from '../firebase.config';
 
 @Component({
   selector: 'app-registrieren',
@@ -31,6 +33,7 @@ export class RegistrierenComponent {
     password: string,
     confirmPassword: string
   ) {
+    console.log('REGISTER BUTTON GEKLICKT');
 
     // Pflichtfelder prüfen
     if (
@@ -67,33 +70,33 @@ export class RegistrierenComponent {
       return;
     }
 
-    // Firebase Registrierung
-    const auth = getAuth();
-
     try {
+      // 1. Firebase Auth User erstellen
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      console.log('Firebase User erstellt:', userCredential.user);
+      const firebaseUser = userCredential.user;
 
-      // optional: lokale Speicherung (ohne Passwort wäre besser!)
-      this.user = {
-        firstName,
-        lastName,
-        email,
-        password
-      };
+      console.log('Auth User erstellt:', firebaseUser.uid);
+
+      // 2. Firestore User-Daten speichern
+      await setDoc(doc(db, 'users', firebaseUser.uid), {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        createdAt: new Date()
+      });
 
       this.message = 'Registrierung erfolgreich!';
       this.messageColor = 'green';
 
-      console.log('Gespeicherter Benutzer:', this.user);
-
-      // Weiterleitung
-      this.router.navigate(['/role-selection']);
+      // kleine Verzögerung für UX
+      setTimeout(() => {
+        this.router.navigate(['/role-selection']);
+      }, 800);
 
     } catch (error) {
       console.error('Firebase Fehler:', error);
