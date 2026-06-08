@@ -1,3 +1,5 @@
+
+
 <!-- Diskrete Suchleiste oben drüber -->
 <div class="suche-oberhalb">
   <input
@@ -35,12 +37,13 @@
     <ul class="fancy-list">
       @for (schueler of schuelerListe$ | async; track $index) {
         <!-- Hier die neue Klasse "schueler-item" hinzufügen -->
-        <li class="schueler-item">
+        <li class="schueler-item" (click)="oeffneSchuelerDetails(schueler)" style="cursor: pointer;">
           <div class="item-icon">👤</div>
           <div class="item-info">
             <span class="name">{{ schueler.name }}</span>
             <span class="details">Klasse: {{ schueler.klasse }}</span>
           </div>
+
         </li>
       } @empty {
         <li class="empty-state">Keine Schüler gefunden...</li>

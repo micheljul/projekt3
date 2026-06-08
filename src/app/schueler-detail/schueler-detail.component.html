@@ -1,15 +1,23 @@
 <div class="box">
   <h2>Schüler-Details</h2>
 
-  <div class="profil-info">
-    <div class="profilbild">[Bild]</div>
+  <div class="detail-container">
 
-    <h3>{{ schuelerName }}</h3>
-    <p><strong>Klasse:</strong> {{ schuelerKlasse }}</p>
-    <p><strong>Lieblingsfach / Hobbys:</strong> {{ schuelerHobbys }}</p>
-    <p><strong>Beschreibung:</strong> {{ schuelerBeschreibung }}</p>
+    <div class="profil-info">
+      <div class="profilbild">[Bild]</div>
+
+      <!-- Hier greifen wir jetzt richtig auf das "profil"-Objekt zu -->
+      <h3>{{ profil?.name }}</h3>
+      <p><strong>Klasse:</strong> {{ profil?.klasse }}</p>
+
+      <!-- Diese Felder müssen genau so heißen, wie du sie damals in Firebase gespeichert hast -->
+      <p><strong>Lieblingsfach / Hobbys:</strong> {{ profil?.hobbys }}</p>
+      <p><strong>Beschreibung:</strong> {{ profil?.beschreibung }}</p>
+    </div>
+
+    <br>
+
+    <!-- Link zurück zum Dashboard angepasst -->
+    <button [routerLink]="['/dashboard']">Zurück zum Dashboard</button>
   </div>
-
-  <br>
-  <button [routerLink]="['/schueler-liste']">Zurück zur Liste</button>
 </div>

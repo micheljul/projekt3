@@ -3,16 +3,18 @@ import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router'; // Router hinzugefügt
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [AsyncPipe], // Wir nutzen wieder den AsyncPipe wie vorher!
+  imports: [AsyncPipe],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   private firestore: Firestore = inject(Firestore);
+  private router: Router = inject(Router); // Router injiziert, damit die Weiterleitung klappt
 
   // Ein kleiner Stream, der sich merkt, was du eintippst
   suchBegriff$ = new BehaviorSubject<string>('');
@@ -54,5 +56,11 @@ export class DashboardComponent {
   // Diese Funktion wird aufgerufen, wenn du tippst
   aufSucheEingabe(event: any) {
     this.suchBegriff$.next(event.target.value);
+  }
+
+  // HIER IST DIE FEHLENDE FUNKTION:
+  oeffneSchuelerDetails(schuelerDaten: any) {
+    console.log("Klick wurde registriert!", schuelerDaten);
+    this.router.navigate(['/schueler-detail'], { state: { profil: schuelerDaten } });
   }
 }
