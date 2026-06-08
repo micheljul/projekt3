@@ -1,25 +1,58 @@
-.profile-form {
+.profil-formular {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 25px;
+
+  background: #ffffff;
+  border: 1px solid #eef2f5;
+  border-radius: 12px;
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+
   display: flex;
   flex-direction: column;
   gap: 15px;
-  text-align: left;
-  width: 100%;
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-    label {
-      font-weight: bold;
-      font-size: 14px;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  input,
+  textarea {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+
+    &:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
     }
+  }
 
-    input, textarea {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-family: inherit;
-    }
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3182ce;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #2563eb;
   }
 }
