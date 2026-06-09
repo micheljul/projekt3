@@ -1,10 +1,9 @@
-<div class="profil-formular">
-
-  <input [(ngModel)]="neuerName" placeholder="Dein Vorname">
-  <input [(ngModel)]="neueKlasse" placeholder="Deine Klasse">
-
-  <input type="file" (change)="onFileSelected($event)" accept="image/*">
+<div class="box">
+  <h1>Profil bearbeiten</h1> <input [(ngModel)]="neuerName" placeholder="Name">
+  <input [(ngModel)]="neuesHobby" placeholder="Hobby"> <input [(ngModel)]="neuesLieblingsfach" placeholder="Lieblingsfach"> <div class="custom-file-input">
+  <input type="file" id="file-input" (change)="onFileSelected($event)" accept="image/*" class="raw-file-input">
+  <label for="file-input" class="file-label">Datei auswählen</label>
+  <span class="file-status">Keine Datei ausgewählt</span> </div>
 
   <button (click)="datenSpeichern()">Profil speichern</button>
-
 </div>

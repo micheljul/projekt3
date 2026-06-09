@@ -1,7 +1,7 @@
 .suche-oberhalb {
-  width: 100%;
-  max-width: 1200px; /* Gleiche Breite wie die Liste */
-  margin: 30px auto 20px auto;
+  width: 95%;
+  max-width: 1400px; /* Hier breiter gemacht */
+  margin: 40px auto 20px auto;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -10,13 +10,16 @@
 
   .kleine-suchleiste {
     width: 100%;
-    max-width: 400px;
-    padding: 14px 20px;
-    font-size: 1.1rem;
+    max-width: 600px; /* Suchleiste breiter gemacht */
+    height: 48px;
+    padding: 0 20px;
+    font-size: 1rem;
     border: 2px solid #cbd5e1;
     border-radius: 12px;
     outline: none;
     background: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 
     &:focus {
       border-color: #3182ce;
@@ -24,33 +27,40 @@
     }
   }
 
-  /* NEU: Die Buttons schön nebeneinander und kleiner */
   .button-group {
     display: flex;
     gap: 15px;
 
     .profil-btn, .logout-btn {
-      padding: 10px 16px; /* Wieder kleiner gemacht */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 20px;
       font-size: 1rem;
-      border-radius: 8px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       color: white;
-      transition: background-color 0.2s;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .profil-btn {
-      background-color: #3b82f6; /* Blau */
+      background-color: #3b82f6;
       &:hover {
         background-color: #2563eb;
+        transform: translateY(-2px);
       }
     }
 
     .logout-btn {
-      background-color: #e74c3c; /* Rot */
+      background-color: #ef4444;
       &:hover {
-        background-color: #c0392b;
+        background-color: #dc2626;
+        transform: translateY(-2px);
       }
     }
   }
@@ -58,72 +68,92 @@
 
 .dashboard-container {
   display: flex;
-  gap: 40px;
-  width: 100%;
-  max-width: 1200px; /* Sorgt dafür, dass die Liste den Platz gut ausnutzt */
-  margin: 10px auto 40px auto;
-  padding: 40px;
+  gap: 80px; /* Hier den Abstand zwischen den Listen verdoppelt */
+  width: 95%;
+  max-width: 1400px; /* Hier breiter gemacht */
+  margin: 0 auto 40px auto;
+  padding: 40px 60px; /* Mehr Innenabstand für Luftigkeit */
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   background: #ffffff;
-  border: 3px solid #000000;
-  border-radius: 24px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+  min-height: 60vh;
+  max-height: 85vh;
 
   .list-card {
     flex: 1;
-    /* Einzel-Rahmen der Boxen komplett entfernt */
+    display: flex;
+    flex-direction: column;
     background: transparent;
     border: none;
     border-radius: 0;
     box-shadow: none;
     padding: 0;
-    padding-right: 15px; /* Abstand für den Scrollbalken */
-
-    height: 600px;
-    overflow-y: auto;
 
     h2 {
       margin-top: 0;
       margin-bottom: 20px;
       font-size: 1.4rem;
-      color: #2c3e50;
-      padding-bottom: 10px;
+      color: #1e293b;
+      padding-bottom: 15px;
       border-bottom: 2px solid #edf2f7;
     }
 
     &.lehrer-card h2 {
-      border-color: #3182ce;
+      border-color: #3b82f6;
     }
 
     &.schueler-card h2 {
-      border-color: #38a169;
+      border-color: #22c55e;
     }
 
     .fancy-list {
       list-style: none;
       padding: 0;
       margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 15px;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
 
       li {
         display: flex;
         align-items: center;
         gap: 15px;
-        padding: 12px 15px;
-        border-radius: 8px;
-        margin-bottom: 10px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        margin-bottom: 12px;
         transition: all 0.2s ease;
+        border: 1px solid transparent;
 
         .item-icon {
-          width: 40px;
-          height: 40px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
           background: #fff;
+          font-size: 1.2rem;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 
           img {
             width: 100%;
@@ -139,54 +169,36 @@
           .name {
             font-weight: 600;
             color: #334155;
+            font-size: 1.05rem;
           }
 
           .details {
             font-size: 0.85rem;
             color: #64748b;
-            margin-top: 2px;
+            margin-top: 4px;
           }
         }
       }
 
       .lehrer-item {
-        background: #eff6ff;
+        background: #f8fafc;
         border-left: 4px solid #3b82f6;
 
         &:hover {
           transform: translateX(4px);
-          background: #dbeafe;
-        }
-
-        .item-icon {
-          color: #3b82f6;
+          background: #eff6ff;
+          border-color: #e2e8f0;
         }
       }
 
       .schueler-item {
-        background: #f0fdf4;
+        background: #f8fafc;
         border-left: 4px solid #22c55e;
 
         &:hover {
           transform: translateX(4px);
-          background: #dcfce7;
-        }
-
-        .item-icon {
-          color: #22c55e;
-        }
-      }
-
-      .empty-state {
-        background: transparent;
-        border: 2px dashed #e2e8f0;
-        color: #94a3b8;
-        justify-content: center;
-        font-style: italic;
-
-        &:hover {
-          transform: none;
-          background: transparent;
+          background: #f0fdf4;
+          border-color: #e2e8f0;
         }
       }
     }

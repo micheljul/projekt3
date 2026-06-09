@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {collection, Firestore, onSnapshot} from '@angular/fire/firestore';
+import {collection, Firestore, onSnapshot, doc, getDoc} from '@angular/fire/firestore';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
@@ -91,19 +91,48 @@ export class DashboardComponent {
     });
   }
 
-  // 👤 MEIN SCHÜLER PROFIL
-  oeffneMeinProfil() {
-    const meinProfil = {
-      name: 'Mein Account',
-      klasse: 'Meine Klasse'
-    };
+  // 👤 MEIN PROFIL
+  async oeffneMeinProfil() {
+    const user = auth.currentUser;
 
-    this.router.navigate(['/schueler-detail'], {
-      state: {
-        profil: meinProfil,
-        darfBearbeiten: true
+    if (!user) {
+      alert('Niemand ist eingeloggt!');
+      return;
+    }
+
+    const uid = user.uid;
+    let profilDaten = null;
+    let zielRoute = '';
+
+    // 1. Prüfen, ob der User in der Schüler-Sammlung ist
+    const schuelerRef = doc(this.firestore, 'schueler_profile', uid);
+    const schuelerSnap = await getDoc(schuelerRef);
+
+    if (schuelerSnap.exists()) {
+      profilDaten = { id: schuelerSnap.id, ...schuelerSnap.data() };
+      zielRoute = '/schueler-detail';
+    } else {
+      // 2. Falls nicht, prüfen ob er in der Lehrer-Sammlung ist
+      const lehrerRef = doc(this.firestore, 'lehrer_profile', uid);
+      const lehrerSnap = await getDoc(lehrerRef);
+
+      if (lehrerSnap.exists()) {
+        profilDaten = { id: lehrerSnap.id, ...lehrerSnap.data() };
+        zielRoute = '/lehrer-detail';
       }
-    });
+    }
+
+    // 3. Navigation mit den geladenen Daten
+    if (profilDaten && zielRoute) {
+      this.router.navigate([zielRoute], {
+        state: {
+          profil: profilDaten,
+          darfBearbeiten: true // Schaltet Bearbeitungs-Buttons frei
+        }
+      });
+    } else {
+      alert('Profil nicht gefunden. Hast du dein Profil beim Registrieren gespeichert?');
+    }
   }
 
   // 🚪 LOGOUT

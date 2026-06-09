@@ -1,48 +1,113 @@
+/* Der Haupt-Container für das zentrierte, shadowed Formular (wie image_8.png) */
 .box {
-  width: 90% !important; /* Erzwingt eine Breite relativ zum Bildschirm */
-  max-width: 1500px;   /* Begrenzt die maximale Breite */
+  width: 90% !important; /* Beibehaltung deiner prozentualen Breite */
+  max-width: 600px;    /* Optimale Breite für ein Formular, zentriert */
   margin: 100px auto;
   padding: 40px;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Weicher Schatten für Tiefe */
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;            /* Gleichmäßige vertikale Abstände */
   border: none;
+  align-items: center;  /* Inhalte horizontal zentrieren */
+  box-sizing: border-box;
 }
 
-/* Stil für die Textarea (Beschreibung) */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Gemeinsames Styling für alle Texteingabefelder (und Textareas) */
+input[type="text"],
+input:not([type="file"]), /* Fängt alle textähnlichen Inputs, außer dem versteckten File-Input */
 textarea {
-  padding: 14px;
+  padding: 14px 20px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-family: sans-serif;
-  resize: vertical; /* Erlaubt dem Nutzer die Größe zu ändern */
-  min-height: 100px;
+  border: 1px solid #ddd; /* Dünner, grauer Rahmen */
+  border-radius: 8px;   /* Abgerundete Ecken */
   outline: none;
+  width: 100%;          /* Volle Breite des Containers */
+  box-sizing: border-box; /* Padding/Border in Breite einschließen */
+  transition: border-color 0.3s;
 }
 
-textarea:focus {
-  border-color: #007bff;
+input:focus {
+  border-color: #007bff; /* Highlight-Farbe beim Klicken */
 }
 
-/* Input und Button wie gehabt */
-input {
-  padding: 14px;
+/* Custom File Input Styling (um image_8.png zu entsprechen) */
+.custom-file-input {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  border: 1px solid #ddd; /* Entspricht dem Input-Rahmen */
+  border-radius: 8px;
+  background-color: #ffffff; /* Weißer Hintergrund */
+  box-sizing: border-box;
+  overflow: hidden; /* Für abgerundete Ecken */
+  transition: border-color 0.3s;
+}
+
+/* Versteckt den originalen, ungestylten Dateiupload-Button */
+.raw-file-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+/* Stylt das Label als "Button-ähnliches" Interface wie in image_8.png */
+.file-label {
+  padding: 14px 20px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
+  background-color: #eee; /* De-emphasized Button-Farbe */
+  color: #333;
+  border-right: 1px solid #ddd; /* Separator */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  box-sizing: border-box;
 }
 
+.file-label:hover {
+  background-color: #ddd;
+}
+
+/* Stylt den Statustext "Keine Datei ausgewählt" */
+.file-status {
+  font-size: 16px;
+  color: #777;
+  padding: 0 15px;
+  flex-grow: 1; /* Nimmt den verbleibenden Platz ein */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Verhindert Überlauf bei langen Dateinamen */
+}
+
+/* Button-Styling (voller Breite, zentriert) */
 button {
   padding: 14px;
-  background-color: #007bff;
+  width: 100%;          /* Volle Breite wie Eingabefelder */
+  background-color: #007bff; /* Primäre Aktion blau */
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #0056b3;
 }

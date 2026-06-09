@@ -14,6 +14,8 @@ export class SchuelerProfilComponent {
 
   neuerName: string = "";
   neueKlasse: string = "";
+  neuesHobby: string = ""; // Hinzugefügt
+  neuesLieblingsfach: string = ""; // Hinzugefügt
 
   bildUrl: string = "";
 
@@ -57,6 +59,8 @@ export class SchuelerProfilComponent {
     await addDoc(schuelerCollection, {
       name: this.neuerName,
       klasse: this.neueKlasse,
+      hobby: this.neuesHobby, // Wird jetzt in Firebase gespeichert
+      lieblingsfach: this.neuesLieblingsfach, // Wird jetzt in Firebase gespeichert
       bildUrl: this.bildUrl
     });
 

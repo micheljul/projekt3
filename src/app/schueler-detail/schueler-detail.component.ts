@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc,  } from '@angular/fire/firestore';
 import { setDoc } from '@angular/fire/firestore';
 
 @Component({
