@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { setDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-schueler-detail',
@@ -28,16 +29,23 @@ export class SchuelerDetailComponent {
 
   async speichern() {
     if (this.profil.id) {
-      // Dokument in Firebase aktualisieren
+      // Wir nehmen die ID vom eingeloggten User
       const profilRef = doc(this.firestore, `schueler_profile/${this.profil.id}`);
-      await updateDoc(profilRef, {
-        name: this.profil.name,
-        klasse: this.profil.klasse,
-        hobbys: this.profil.hobbys,
-        beschreibung: this.profil.beschreibung
-      });
+
+      try {
+        // setDoc mit { merge: true } erstellt das Dokument, falls es noch nicht da ist
+        await setDoc(profilRef, {
+          name: this.profil.name,
+          klasse: this.profil.klasse,
+          hobbys: this.profil.hobbys,
+          beschreibung: this.profil.beschreibung
+        }, { merge: true });
+
+        this.istBearbeiten = false;
+      } catch (error) {
+        console.error("Fehler beim Speichern:", error);
+        alert("Speichern fehlgeschlagen: " + error);
+      }
     }
-    // Bearbeitungsmodus beenden
-    this.istBearbeiten = false;
   }
 }

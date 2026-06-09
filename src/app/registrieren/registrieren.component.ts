@@ -83,9 +83,11 @@ export class RegistrierenComponent {
       console.log('Auth User erstellt:', firebaseUser.uid);
 
       // 2. Firestore User-Daten speichern
-      await setDoc(doc(db, 'users', firebaseUser.uid), {
-        firstName: firstName,
-        lastName: lastName,
+      await setDoc(doc(db, 'schueler_profile', firebaseUser.uid), {
+        name: firstName + ' ' + lastName, // Hier kombinieren wir Vor- und Nachname zu "Sophie [Nachname]"
+        klasse: 'Bitte eintragen',       // Standardwert
+        hobbys: '',                      // Leer lassen für später
+        beschreibung: '',                // Leer lassen für später
         email: email,
         createdAt: new Date()
       });

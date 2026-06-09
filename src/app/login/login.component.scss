@@ -1,0 +1,66 @@
+/* Container optisch aufwerten */
+.box {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Weicher Schatten */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: none; /* Schwarzer Rahmen entfernt für moderneren Look */
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+}
+
+/* Eingabefelder stylen */
+input {
+  padding: 14px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #007bff; /* Highlight beim Klicken */
+}
+
+/* Buttons attraktiver gestalten */
+button {
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* "Einloggen" als Primary Button */
+button:first-of-type {
+  background-color: #007bff;
+  color: white;
+}
+
+button:first-of-type:hover {
+  background-color: #0056b3;
+}
+
+/* "Registrieren" als Secondary Button */
+button:last-of-type {
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+button:last-of-type:hover {
+  background-color: #f0f7ff;
+}
