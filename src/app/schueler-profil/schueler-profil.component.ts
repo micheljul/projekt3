@@ -3,8 +3,6 @@ import {FormsModule} from '@angular/forms';
 import {addDoc, collection, Firestore} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
 
-import {getDownloadURL, getStorage, ref, uploadBytes} from 'firebase/storage';
-
 @Component({
   selector: 'app-schueler-profil',
   standalone: true,
@@ -17,39 +15,53 @@ export class SchuelerProfilComponent {
   neuerName: string = "";
   neueKlasse: string = "";
 
+  bildUrl: string = "";
+
   private firestore: Firestore = inject(Firestore);
   private router = inject(Router);
 
-  selectedFile: File | null = null;
-
-  // 📁 Datei auswählen
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const img = new Image();
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+
+        const maxWidth = 300;
+        const scale = maxWidth / img.width;
+
+        canvas.width = maxWidth;
+        canvas.height = img.height * scale;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        this.bildUrl = canvas.toDataURL('image/jpeg', 0.6);
+      };
+
+      img.src = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
   }
 
   async datenSpeichern() {
-    const storage = getStorage();
-    let downloadURL = "";
 
-    // 📤 Bild hochladen
-    if (this.selectedFile) {
-      const filePath = `schueler-bilder/${Date.now()}_${this.selectedFile.name}`;
-      const storageRef = ref(storage, filePath);
-
-      await uploadBytes(storageRef, this.selectedFile);
-      downloadURL = await getDownloadURL(storageRef);
-    }
-
-    // 🧠 Firestore speichern
     const schuelerCollection = collection(this.firestore, 'schueler_profile');
 
     await addDoc(schuelerCollection, {
       name: this.neuerName,
       klasse: this.neueKlasse,
-      bildUrl: downloadURL
+      bildUrl: this.bildUrl
     });
 
     alert('Profil erfolgreich gespeichert!');
+
     this.router.navigate(['/login']);
   }
 }

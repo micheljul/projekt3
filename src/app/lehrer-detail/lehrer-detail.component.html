@@ -4,8 +4,7 @@
     <!-- Header -->
     <div class="card-header">
       <div class="header-icon">
-        <img *ngIf="profil?.bildUrl; else emoji" [src]="profil.bildUrl"/>
-        <ng-template #emoji>👨‍🏫</ng-template>
+        <img [src]="profil?.bildUrl" alt="Profilbild">
       </div>
 
       <h2>{{ profil?.name ? profil.name : 'Lehrer-Profil' }}</h2>

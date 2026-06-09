@@ -2,7 +2,7 @@
 
   <input [(ngModel)]="neuerName" placeholder="Dein Vorname">
   <input [(ngModel)]="neueKlasse" placeholder="Deine Klasse">
-  
+
   <input type="file" (change)="onFileSelected($event)" accept="image/*">
 
   <button (click)="datenSpeichern()">Profil speichern</button>

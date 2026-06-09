@@ -3,14 +3,23 @@
 
     <!-- Grüner Header -->
     <div class="card-header">
-      <div class="header-icon">👤</div>
-      <h2>{{ darfBearbeiten ? 'Mein Profil' : 'Schüler-Profil' }}</h2>
+
+      <div class="header-icon">
+        @if (profil?.bildUrl) {
+          <img [src]="profil.bildUrl" alt="Profilbild">
+        } @else {
+          👤
+        }
+      </div>
+
+      <h2>{{ profil?.name ? profil.name : 'Schüler-Profil' }}</h2>
 
       @if (darfBearbeiten) {
         <button class="edit-btn" (click)="modusWechseln()">
           {{ istBearbeiten ? '❌ Abbrechen' : '✏️ Bearbeiten' }}
         </button>
       }
+
     </div>
 
     <div class="card-body">
@@ -34,10 +43,7 @@
             <span class="value">{{ profil?.beschreibung || '-' }}</span>
           </div>
         </div>
-      }
-
-
-      @else {
+      } @else {
         <div class="edit-form">
           <div class="form-group">
             <label>Name</label>

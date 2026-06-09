@@ -3,9 +3,9 @@
   <input [(ngModel)]="neuerName" placeholder="Name">
   <input [(ngModel)]="neuesFach" placeholder="Unterrichtsfach">
   <input [(ngModel)]="neueHobbys" placeholder="Hobby">
-
-  <input type="file" (change)="onFileSelected($event)" accept="image/*">
   
+  <input type="file" (change)="onFileSelected($event)" accept="image/*">
+
   <button (click)="datenSpeichern()">Profil speichern</button>
 
 

@@ -27,8 +27,11 @@
             style="cursor: pointer;">
 
           <div class="item-icon">
-            <img *ngIf="lehrer.bildUrl; else icon" [src]="lehrer.bildUrl"/>
-            <ng-template #icon>💼</ng-template>
+            @if (lehrer.bildUrl) {
+              <img [src]="lehrer.bildUrl"/>
+            } @else {
+              💼
+            }
           </div>
 
           <div class="item-info">
@@ -51,7 +54,13 @@
     <ul class="fancy-list">
       @for (schueler of schuelerListe$ | async; track $index) {
         <li class="schueler-item" (click)="oeffneSchuelerDetails(schueler)" style="cursor: pointer;">
-          <div class="item-icon">👤</div>
+          <div class="item-icon">
+            @if (schueler.bildUrl) {
+              <img [src]="schueler.bildUrl"/>
+            } @else {
+              👤
+            }
+          </div>
           <div class="item-info">
             <span class="name">{{ schueler.name }}</span>
             <span class="details">Klasse: {{ schueler.klasse }}</span>
