@@ -1,5 +1,7 @@
-body {
+
+body, body {
   margin: 0;
+  padding: 0;
   height: 100vh;
 
   display: flex;
@@ -10,9 +12,9 @@ body {
 }
 
 .box {
-  border: 2px solid black;   /* Rahmen */
+  border: 2px solid black; /* Rahmen */
   padding: 20px;
-  border-radius: 10px;       /* schöner abgerundet */
+  border-radius: 10px; /* schöner abgerundet */
 
   display: flex;
   flex-direction: column;
@@ -21,13 +23,14 @@ body {
   width: 220px;
   text-align: center;
 
-  background-color: white;   /* optional */
+  background-color: white; /* optional */
 }
 
 button {
   padding: 8px;
   cursor: pointer;
 }
+
 /* ==========================================================================
    GLOBALE RESPONSIVE ANPASSUNGEN (Handys & kleine Tablets)
    ========================================================================== */
