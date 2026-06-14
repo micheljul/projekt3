@@ -34,4 +34,37 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-right: 40px;
+}
+
+.profil-btn,
+.logout-btn {
+  width: 140px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+
+  font-weight: 600;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profil-btn {
+  background: white;
+  color: #1f4e79;
+  border: 1px solid #c9def8;
+  border-radius: 999px !important; /* 👈 erzwingt Rundung */
+}
+
+.logout-btn {
+  background: #dc3545;
+  color: white;
+  border-radius: 999px !important; /* 👈 erzwingt Rundung */
 }

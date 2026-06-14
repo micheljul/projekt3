@@ -3,7 +3,15 @@
     <span class="title">Who Is Who – HTL Donaustadt</span>
   </div>
 
-  <div class="right">
-    <!-- später: Profil, Logout, Icons -->
-  </div>
+  @if (showDashboardButtons) {
+    <div class="right">
+      <button class="profil-btn" (click)="oeffneProfil()">
+        👤 Mein Profil
+      </button>
+
+      <button class="logout-btn" (click)="logout()">
+        🚪 Logout
+      </button>
+    </div>
+  }
 </header>
