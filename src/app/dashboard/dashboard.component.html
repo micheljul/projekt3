@@ -24,7 +24,7 @@
 
           <div class="item-icon">
             @if (lehrer.bildUrl) {
-              <img [src]="lehrer.bildUrl"/>
+              <img [src]="lehrer.bildUrl" [alt]="lehrer.name"/>
             } @else {
               💼
             }
@@ -55,7 +55,7 @@
             style="cursor: pointer;">
           <div class="item-icon">
             @if (schueler.bildUrl) {
-              <img [src]="schueler.bildUrl"/>
+              <img [src]="schueler.bildUrl" [alt]="schueler.name"/>
             } @else {
               👤
             }
