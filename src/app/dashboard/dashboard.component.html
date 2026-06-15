@@ -16,7 +16,9 @@
 
     <ul class="fancy-list">
       @for (lehrer of lehrerListe$ | async; track $index) {
+
         <li class="lehrer-item"
+            [class.dimmed]="lehrer.isDimmed"
             (click)="oeffneLehrerDetails(lehrer)"
             style="cursor: pointer;">
 
@@ -47,7 +49,10 @@
     <h2>🎓 Schüler-Liste</h2>
     <ul class="fancy-list">
       @for (schueler of schuelerListe$ | async; track $index) {
-        <li class="schueler-item" (click)="oeffneSchuelerDetails(schueler)" style="cursor: pointer;">
+        <li class="schueler-item"
+            [class.dimmed]="schueler.isDimmed"
+            (click)="oeffneSchuelerDetails(schueler)"
+            style="cursor: pointer;">
           <div class="item-icon">
             @if (schueler.bildUrl) {
               <img [src]="schueler.bildUrl"/>

@@ -47,22 +47,37 @@ export class DashboardComponent {
       });
     });
 
-    // 🔍 FILTER SCHÜLER
+
+    // 🔍 DIMMING & SORTIEREN
     this.schuelerListe$ = combineLatest([roheSchueler$, this.suchBegriff$]).pipe(
-      map(([schueler, begriff]) =>
-        schueler.filter(s =>
-          s.name?.toLowerCase().includes(begriff.toLowerCase())
-        )
-      )
+      map(([schueler, begriff]) => {
+        // 1. Status berechnen (Dimmed oder nicht)
+        const liste = schueler.map(s => ({
+          ...s,
+          isDimmed: begriff.length > 0 && !s.name?.toLowerCase().includes(begriff.toLowerCase())
+        }));
+
+        // 2. Sortieren: Die Treffer (isDimmed = false) kommen nach oben
+        return liste.sort((a, b) => {
+          if (a.isDimmed === b.isDimmed) return 0; // Gleicher Status, Reihenfolge beibehalten
+          return a.isDimmed ? 1 : -1; // Wenn a gedimmt ist, schieb es nach unten (1), sonst nach oben (-1)
+        });
+      })
     );
 
-    // 🔍 FILTER LEHRER
+// Genau das Gleiche für die Lehrer
     this.lehrerListe$ = combineLatest([roheLehrer$, this.suchBegriff$]).pipe(
-      map(([lehrer, begriff]) =>
-        lehrer.filter(l =>
-          l.name?.toLowerCase().includes(begriff.toLowerCase())
-        )
-      )
+      map(([lehrer, begriff]) => {
+        const liste = lehrer.map(l => ({
+          ...l,
+          isDimmed: begriff.length > 0 && !l.name?.toLowerCase().includes(begriff.toLowerCase())
+        }));
+
+        return liste.sort((a, b) => {
+          if (a.isDimmed === b.isDimmed) return 0;
+          return a.isDimmed ? 1 : -1;
+        });
+      })
     );
   }
 

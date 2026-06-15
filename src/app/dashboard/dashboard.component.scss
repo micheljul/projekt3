@@ -206,8 +206,22 @@
           transform: translateX(4px);
           background: #f0fdf4;
           border-color: #e2e8f0;
+
+        }
+
+
+
         }
       }
     }
   }
+
+
+/* Statt nur .highlight, nutze li.highlight für mehr "Kraft" */
+/* Statt .highlight nutzen wir jetzt .dimmed */
+.dimmed {
+  opacity: 0.2; /* Macht die nicht passenden Elemente blass */
+  transition: opacity 0.3s ease; /* Sorgt für einen weichen Übergang */
+  filter: grayscale(0.5); /* Optional: macht sie zusätzlich etwas grauer */
+
 }
